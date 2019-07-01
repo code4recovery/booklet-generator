@@ -1,0 +1,27 @@
+/* Shared Styles */
+
+%spacing-shared {
+	margin-top: 30px;
+ 	margin-bottom: 30px;
+ 	margin-right: 30px;
+ 	margin-left: 30px
+}
+
+/* App */
+
+.App {
+	@extend %spacing-shared;
+	text-align: center;
+	
+}
+
+/* Source Form */
+
+.SourceForm {
+	@extend %spacing-shared;
+}
+
+.SourceForm-input {
+	margin-left: 10px;
+	margin-right: 10px;
+}
