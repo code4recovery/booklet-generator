@@ -4,6 +4,8 @@ import SourceForm from './Components/SourceForm'
 import ProcessJSON from './Components/ProcessJSON'
 import GenerateBooklet from './Components/GenerateBooklet'
 
+import settings from './settings';
+
 class App extends React.Component{
 	constructor(props) {
 	  	super(props);
@@ -11,24 +13,16 @@ class App extends React.Component{
 	  	this.state = {
 	  		src: '',
 	  		meetings: [],
-	  		config: {}
+	  		settings: settings,
 		}
 
-		this.updateMeetings = this.updateMeetings.bind(this);
-		this.updateSource = this.updateSource.bind(this);
+		this.setAppState = this.setAppState.bind(this);
 	}
 
-	updateMeetings(meetings) {
-		this.setState({
-			meetings: meetings
-		})
+	//function for components to set global state
+	setAppState(key, value) {
+		this.setState({ [key]: value });		
 	}
-
-	updateSource(src) {
-		this.setState({ src: src });
-	}
-
-
 
 	render() {
 	  	return (
@@ -36,8 +30,8 @@ class App extends React.Component{
 		    	<header className="App-header">
 		    		<h1>Booklet Generator</h1>
 		    	</header>
-		    	<SourceForm updateSource = {this.updateSource} />
-		    	<ProcessJSON updateMeetings = {this.updateMeetings} src = {this.state.src} />
+		    	<SourceForm setAppState = {this.setAppState} />
+		    	<ProcessJSON state={this.state} setAppState = {this.setAppState} />
 		    </div>
 		);
 	}
