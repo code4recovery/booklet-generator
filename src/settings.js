@@ -71,7 +71,7 @@ export const settings = {
 			},
 		},
 	},
-	print_defaults: {
+	print_settings: {
 		preferred_source: {
 			name: 'bg_name',
 			notes: 'bg_notes',

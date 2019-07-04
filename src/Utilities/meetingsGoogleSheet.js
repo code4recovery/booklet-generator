@@ -1,5 +1,5 @@
-function translateGoogleSheet(data){
-	//translates Google Sheet JSON into Meeting Guide format
+//translates Google Sheet JSON into Meeting Guide format
+function meetingsGoogleSheet(data) {
 	//see Cateret County example on https://github.com/meeting-guide/spreadsheet
 	//https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ5OsDCKSDEvWvqM_Z6tmXe4N-VYEnEAfvU5PX5QXZjHVbnrX-aeiyhWnZp0wpWtOmWjO4L5GJtfFu/pubhtml
 	//JSON: https://spreadsheets.google.com/feeds/list/1prbiXHu9JS5eREkYgBQkxlkJELRHqrKz6-_PLGPWIWk/1/public/values?alt=json
@@ -17,7 +17,7 @@ function translateGoogleSheet(data){
 			}
 		}
 
-		//convert time to HH:MM
+		//converts time to HH:MM
 		let timeTemp = meeting.time.toLowerCase();
 		if (timeTemp.includes('am')) {
 			meeting.time =  timeTemp.substr(0, timeTemp.indexOf(' am'));
@@ -33,7 +33,7 @@ function translateGoogleSheet(data){
 			meeting.time = tempHours + ':' + tempMinutes;
 		}
 
-		//array-ify types
+		//array-ifys types
 		meeting.types = meeting.types.split(',');
 
 		meetings.push(meeting);
@@ -43,4 +43,4 @@ function translateGoogleSheet(data){
 }
 
 
-export default translateGoogleSheet;
+export default meetingsGoogleSheet;

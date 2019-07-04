@@ -1,8 +1,6 @@
 import React from 'react';
 
-import SourceForm from './Components/SourceForm'
-import ProcessJSON from './Components/ProcessJSON'
-import GenerateBooklet from './Components/GenerateBooklet'
+import Meetings from './Components/Meetings';
 
 import settings from './settings';
 
@@ -11,8 +9,7 @@ class App extends React.Component{
 	  	super(props);
 	  	
 	  	this.state = {
-	  		src: '',
-	  		meetings: [],
+	  		latex: [],
 	  		settings: settings,
 		}
 
@@ -30,8 +27,7 @@ class App extends React.Component{
 		    	<header className="App-header">
 		    		<h1>Booklet Generator</h1>
 		    	</header>
-		    	<SourceForm setAppState = {this.setAppState} />
-		    	<ProcessJSON state={this.state} setAppState = {this.setAppState} />
+		    	<Meetings state = {this.state} setAppState = {this.setAppState} />
 		    </div>
 		);
 	}
