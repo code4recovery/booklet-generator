@@ -1,5 +1,5 @@
 //translates Google Sheet JSON into Meeting Guide format
-function meetingsGoogleSheet(data) {
+function meetingsProcessGoogleSheet(data) {
 	//see Cateret County example on https://github.com/meeting-guide/spreadsheet
 	//https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ5OsDCKSDEvWvqM_Z6tmXe4N-VYEnEAfvU5PX5QXZjHVbnrX-aeiyhWnZp0wpWtOmWjO4L5GJtfFu/pubhtml
 	//JSON: https://spreadsheets.google.com/feeds/list/1prbiXHu9JS5eREkYgBQkxlkJELRHqrKz6-_PLGPWIWk/1/public/values?alt=json
@@ -43,4 +43,4 @@ function meetingsGoogleSheet(data) {
 }
 
 
-export default meetingsGoogleSheet;
+export default meetingsProcessGoogleSheet;

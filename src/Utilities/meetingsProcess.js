@@ -1,7 +1,9 @@
-import meetingsGoogleSheet from '../Utilities/meetingsGoogleSheet';
+import meetingsToLatex from '../Utilities/meetingsToLatex';
+import meetingsProcessGoogleSheet from '../Utilities/meetingsProcessGoogleSheet';
 
 // pocesses JSON from file, feed, or Google Sheet according to Meeting Guide spec
-function meetingsProcess(appState, meetingsState) {
+function meetingsProcess(appState, meetingsState, setMeetingsState, callback) {
+		let errors = meetingsState.errors;
 		if(meetingsState.source) {
 			fetch(meetingsState.source).then(result => { return result.json(); }).then(result => {
 				//for readability
@@ -9,7 +11,7 @@ function meetingsProcess(appState, meetingsState) {
 
 				//if Google Sheet, translate to Meeting Guide spec JSON
 				if (meetingsState.source.includes('spreadsheets.google.com')) {
-					meetings = meetingsGoogleSheet(meetings);
+					meetings = meetingsProcessGoogleSheet(meetings);
 				}
 
 				//check for any meetings with arrays of days and creates an individual meeting for each day in array
@@ -76,7 +78,7 @@ function meetingsProcess(appState, meetingsState) {
 
 				//????: how to deal with region
 
-				return meetings;
+				meetingsToLatex(appState, meetingsState, setMeetingsState, callback, meetings, errors);
 			});	
 		}
 		
