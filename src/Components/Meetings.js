@@ -1,9 +1,9 @@
 import React from 'react';
 
-import meetingsProcess from '../Utilities/meetingsProcess';
+import meetingsProcess from '../Utilities/meetings/meetingsProcess';
 
 // Component for loading a source of Meetings and selecting its print settings
-class Meetings extends React.Component {
+export default class Meetings extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +23,7 @@ class Meetings extends React.Component {
 
   //update state when textbox input changes
   handleChange(event) {
-    this.setState({source: event.target.value});
+    this.setState({source: event.target.value, latex: '', load_message: 'Current Settings and Source Not Loaded'});
   }
 
   //processes meetings and creates latex and then updates item state with App
@@ -43,13 +43,14 @@ class Meetings extends React.Component {
   }
 
   render() {
+
+    // sets load_message_class depending on state of Meetings
     let load_message_class = "Meetings-input btn btn-warning";
     if (this.state.errors.length) {
       load_message_class = "Meetings-input btn btn-danger";
     } else if (this.state.latex) {
       load_message_class = "Meetings-input btn btn-success";
     }
-
 
     return (
       <div className="Meetings">
@@ -67,12 +68,11 @@ class Meetings extends React.Component {
         </div>
         <h3>Load Settings and Source:</h3>
         <div className="App-content">
-          <button type="submit" className="Meetings-input btn btn-primary" form={this.props.label}>Load Meetings</button>
+          <button type="submit" className="Meetings-input btn btn-primary" form={this.props.label}>Load</button>
           <button type="button" className={load_message_class} disabled>{this.state.load_message}</button>
+          <p className="App-note">*Any change to the settings or source requires reloading</p>
         </div>
       </div>
     );
   }
 }
-
-export default Meetings;

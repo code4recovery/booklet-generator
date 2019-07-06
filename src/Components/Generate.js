@@ -1,9 +1,11 @@
 import React from 'react';
 
+import generatePDF from '../Utilities/generate/generatePDF'
+
 //import settings from '../settings';
 
 // The main App
-class Generate extends React.Component{
+export default class Generate extends React.Component{
 	constructor(props) {
 	    super(props);
 
@@ -15,7 +17,7 @@ class Generate extends React.Component{
 	//update app state source on submit
 	handleSubmitPDF(event) {
 	    console.log("Generate PDF");
-	   	//generatePDF(this.props.state);
+	   	generatePDF(this.props.state);
 	    event.preventDefault();
 	}
 
@@ -35,18 +37,15 @@ class Generate extends React.Component{
     return (
     	<div className="Generate">
 	        <form onSubmit={this.handleSubmitPDF} className="Generate-form">
-	          <button type="submit" className="Generate-button btn btn-dark">Generate PDF</button>
+	          <button type="submit" className="Generate-button btn btn-outline-primary">Generate PDF</button>
 	        </form>
 	       	<form onSubmit={this.handleSubmitLatex} className="Generate-form">
-	          <button type="submit" className="Generate-button btn btn-dark">Generate LaTeX</button>
+	          <button type="submit" className="Generate-button btn btn-outline-secondary">Generate LaTeX</button>
 	        </form>
 			<form onSubmit={this.handleSubmitConfig} className="Generate-form">
-	          <button type="submit" className="Generate-button btn btn-dark">Generate Config</button>
+	          <button type="submit" className="Generate-button btn btn-outline-secondary">Generate Config File</button>
 	        </form>
     	</div>
     );
   }
 }
-
-export default Generate;
-
