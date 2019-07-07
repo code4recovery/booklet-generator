@@ -1,6 +1,6 @@
 //uses TexLive.js to generate a PDF from the latex produced by the App
 
-export default function generatePDF(appState){
+export default function generatePDF(appState, setGenerateState){
 	let pdftex = new window.PDFTeX();
 	let latex_code = "" + 
 	"\\documentclass{article}" + 
@@ -10,5 +10,9 @@ export default function generatePDF(appState){
 	"\\end{document}"; 
 
 	pdftex.compile(latex_code)
-		.then(function(pdf) { window.open(pdf) });
+		.then(function(pdf) {
+			setGenerateState("download", pdf);
+			setGenerateState("loading", false);
+		}
+	);
 }

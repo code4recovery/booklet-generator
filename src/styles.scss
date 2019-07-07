@@ -7,7 +7,8 @@
 
 %spacing-inline {
 	margin-right: 15px;
- 	margin-left: 15px
+ 	margin-left: 15px;
+ 	display: inline;
 }
 
 /* App */
@@ -62,7 +63,19 @@
 
 .Generate-form {
 	@extend %spacing-inline;
-	display: inline;
+}
+
+.GenerateLoading-download-true {
+	@extend %spacing-inline;
+
+}
+
+.GenerateLoading-download-true a {
+	color: white;
+}
+
+.GenerateLoading-download-false {
+	display: none;
 }
 
 /* Meetings */
