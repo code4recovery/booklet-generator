@@ -1,10 +1,9 @@
 // takes processed meetings JSON and converts to a LaTex string
 export default function meetingsToLatex(appState, meetingsState, setMeetingsState, callback, meetings, errors) {
 	
+	let print_strings = appState.settings.print_strings[appState.settings.language];
 	let latex = '';
 	let meetingsByDay = [];
-
-	console.log(meetings);
 
 	// sorts meeting by day
 	for (let i=0; i < 7; i++) {
@@ -17,14 +16,17 @@ export default function meetingsToLatex(appState, meetingsState, setMeetingsStat
 	}
 
 	// loops through and creates latex for each meeting organized by day
-	for (let i=0; i < 7; i++) {
+	for (let i=0; i<7; i++) {
+		latex += "\\chead{"+ print_strings[appState.settings.days[i]] + " Meetings}\n"
 		//need to do latex for day heading
 		for (let j=0; j<meetingsByDay[i].length; j++) {
-			latex += singleMeetingToLatex(meetingsByDay[i][j]);
+			latex += "{\\footnotesize " + singleMeetingToLatex(meetingsByDay[i][j], print_strings) + "}\n";
+			if (j !== meetingsByDay[i].length -1) {
+				latex += "\\medskip \\\\ \n"
+			}
 		}
+		latex = latex + "\\newpage\n";
 	}
-
-	console.log(latex);
 
 	//updates Meeting state 
 	setMeetingsState('errors', errors);
@@ -33,14 +35,15 @@ export default function meetingsToLatex(appState, meetingsState, setMeetingsStat
 	callback();
 }
 
-function singleMeetingToLatex(meeting){
+function singleMeetingToLatex(meeting, print_strings){
 	let newname = latexEscapeCharacterFilter(meeting.name);
 	let newaddress = latexEscapeCharacterFilter(meeting.address);
 	let newnotes = latexEscapeCharacterFilter(meeting.notes);
+	let newtime = formatTime(meeting.time, print_strings);
 
 	//need to format time
-	let latex = "\\settowidth{\\extSpace}{" + meeting.time + "} \\setlength{\\extSpace}{4.2em - \\extSpace} ";
-		latex = latex + meeting.time + " \\hspace{\\extSpace} \\textbf{"+newname+"} \\hfill "+meeting.city+"\n";
+	let latex = "\\settowidth{\\extSpace}{" + newtime + "} \\setlength{\\extSpace}{4.2em - \\extSpace} ";
+		latex = latex + newtime + " \\hspace{\\extSpace} \\textbf{"+newname+"} \\hfill "+meeting.city+"\n";
 		latex = latex + "\\settowidth{\\extSpace}{" + meeting.types + "} \\setlength{\\extSpace}{4.2em - \\extSpace} ";
 		latex = latex + "\\\\ " + meeting.types + " \\hspace{\\extSpace} " + newaddress + newnotes;
 
@@ -60,7 +63,7 @@ function latexEscapeCharacterFilter(preString){
 	return postString;
 }
 
-function formatTime(time) {
+function formatTime(time, print_strings) {
 
 	//check that string is HH:MM
 	if (!time || time.length !== 5 || time.substr(2, 1) !== ':') return null;
@@ -69,16 +72,14 @@ function formatTime(time) {
 	const [ hours, minutes ] = time.split(':');
 
 	//check for times with special names
-	if (hours == '12' && minutes == '00') {
-		//return strings.noon;
-		return "noon";
+	if (hours === '12' && minutes === '00') {
+		return print_strings.noon;
 	} else if (
-		(hours == '00' && minutes == '00') || 
-		(hours == '23' && minutes == '59') || 
-		(hours == '24' && minutes == '00')
+		(hours === '00' && minutes === '00') || 
+		(hours === '23' && minutes === '59') || 
+		(hours === '24' && minutes === '00')
 	) {
-		//return strings.midnight;
-		return "midnight";
+		return print_strings.midnight;
 	}
 
 	//create a date object

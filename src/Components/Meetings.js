@@ -45,33 +45,29 @@ export default class Meetings extends React.Component {
   render() {
 
     // sets load_message_class depending on state of Meetings
-    let load_message_class = "Meetings-input btn btn-warning";
+    let load_message_class = "Meetings-button btn btn-warning";
     if (this.state.errors.length) {
-      load_message_class = "Meetings-input btn btn-danger";
+      load_message_class = "Meetings-button btn btn-danger";
     } else if (this.state.latex) {
-      load_message_class = "Meetings-input btn btn-success";
+      load_message_class = "Meetings-button btn btn-success";
     }
 
     return (
       <div className="Meetings">
         <h2>Add Meetings</h2>
-        <h3 className={this.state.errors.length ? 'App-error' : 'App-error-hidden'}>Error Message:</h3>
-        <h3>Edit Settings:</h3>
         <h3>Set Source:</h3>
-        <div className="App-content">
-          <form id={this.props.label} onSubmit={this.handleSubmit}>
-            <label>
-              Enter JSON Feed URL:
-              <input className="Meetings-input" type="text" size="60" value={this.state.source} onChange={this.handleChange} />
-            </label>
-          </form>
-        </div>
+        <form className="App-content" id={this.props.label} onSubmit={this.handleSubmit}>
+          <label className="Meetings-source-lable">Enter JSON Feed URL:</label>
+          <input className="Meetings-source-input" type="text" value={this.state.source} onChange={this.handleChange} />
+        </form>
+        <h3>Edit Settings:</h3>
         <h3>Load Settings and Source:</h3>
         <div className="App-content">
-          <button type="submit" className="Meetings-input btn btn-primary" form={this.props.label}>Load</button>
+          <button type="submit" className="Meetings-button btn btn-primary" form={this.props.label}>Load</button>
           <button type="button" className={load_message_class} disabled>{this.state.load_message}</button>
           <p className="App-note">*Any change to the settings or source requires reloading</p>
         </div>
+        <h3 className={this.state.errors.length ? 'App-error' : 'App-error-hidden'}>Error Message:</h3>
       </div>
     );
   }

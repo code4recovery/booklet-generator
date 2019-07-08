@@ -11,6 +11,13 @@
  	display: inline;
 }
 
+%spacing-button {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+ 	margin-bottom: 10px;
+}
+
 /* App */
 
 .App {
@@ -34,8 +41,10 @@
 }
 
 .App-content {
-	@extend %spacing-mainblock;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	margin-left: 100px;
+	margin-right: 100px;
 }
 
 .App-error {
@@ -78,13 +87,25 @@
 	display: none;
 }
 
+.Generate-button {
+	margin-top: 10px;
+ 	margin-bottom: 10px;
+}
+
 /* Meetings */
 
 .Meetings {
 	@extend %spacing-mainblock;
 }
 
-.Meetings-input {
-	margin-left: 10px;
-	margin-right: 10px;
+.Meetings-button {
+	@extend %spacing-button;
+}
+
+.Meetings-source-lable {
+	font-weight: bold;
+}
+
+.Meetings-source-input {
+	width: 100%;
 }

@@ -17,22 +17,8 @@ export default function meetingsProcessGoogleSheet(data) {
 			}
 		}
 
-		//replace with parseTime
 		//converts time to HH:MM
-		let timeTemp = meeting.time.toLowerCase();
-		if (timeTemp.includes('am')) {
-			meeting.time =  timeTemp.substr(0, timeTemp.indexOf(' am'));
-			if (meeting.time === '12') {
-				let [ tempHours, tempMinutes ] = timeTemp.split(':');
-				tempHours = parseInt(tempHours) - 12;
-				meeting.time = tempHours + ':' + tempMinutes;
-			}
-		} else if (timeTemp.includes('pm')) {
-			timeTemp = timeTemp.substr(0, timeTemp.indexOf(' pm'));
-			let [ tempHours, tempMinutes ] = timeTemp.split(':');
-			if (tempHours !== '12') tempHours = parseInt(tempHours) + 12;
-			meeting.time = tempHours + ':' + tempMinutes;
-		}
+		meeting.time = parseTime(meeting.time);
 
 		//array-ifys types
 		meeting.types = meeting.types.split(',');
@@ -51,7 +37,7 @@ function parseTime(timeString) {
 	if (time == null) return null;
 	
 	let hours = parseInt(time[1], 10);	 
-	if (hours == 12 && !time[4]) {
+	if (hours === 12 && !time[4]) {
 		hours = 0;
 	} else {
 		hours += (hours < 12 && time[4]) ? 12 : 0;

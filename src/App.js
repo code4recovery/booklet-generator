@@ -33,7 +33,7 @@ export default class App extends React.Component{
 		    		<p className="App-subtitle">A tool to turn a Meeting Guide format JSON feed into a print optimized PDF for the production of paper meeting booklets.</p>
 		    		<Generate state = {this.state} /> 
 		    	</header>
-		    	<Meetings state = {this.state} setAppState = {this.setAppState} label="meeting1" />
+		    	<Meetings state = {this.state} setAppState = {this.setAppState} label="meetings1" />
 		    </div>
 		);
 	}

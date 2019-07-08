@@ -3,6 +3,8 @@ import React from 'react';
 import GenerateLoading from './GenerateChildren/GenerateLoading'
 
 import generatePDF from '../Utilities/generate/generatePDF'
+import generateLatex from '../Utilities/generate/generateLatex'
+import generateConfig from '../Utilities/generate/generateConfig'
 
 //import settings from '../settings';
 
@@ -31,14 +33,16 @@ export default class Generate extends React.Component{
 	}
 
 	handleSubmitLatex(event) {
-    	console.log("Generate Latex");
-    	//generateLatex(this.props.state);
+    	this.setState({loading: true, filetype: "LaTeX"});
+	   	generateLatex(this.props.state, this.setGenerateState);
+    	//potentially use data URI to create file?
     	event.preventDefault();
   	}
 
    handleSubmitConfig(event) {
-   		console.log("Generate Config");
-   		//generateConfig(this.props.state);
+   		this.setState({loading: true, filetype: "Config File"});
+	   	generateConfig(this.props.state, this.setGenerateState);
+   		//potentially use data URI to create file?
    		event.preventDefault();
   	}
 
@@ -53,10 +57,10 @@ export default class Generate extends React.Component{
 		          <button type="submit" className="Generate-button btn btn-outline-primary">Generate PDF</button>
 		        </form>
 		       	<form onSubmit={this.handleSubmitLatex} className="Generate-form">
-		          <button type="submit" className="Generate-button btn btn-outline-primary">Generate LaTeX</button>
+		          <button type="submit" className="Generate-button btn btn-outline-secondary">Generate LaTeX</button>
 		        </form>
 				<form onSubmit={this.handleSubmitConfig} className="Generate-form">
-		          <button type="submit" className="Generate-button btn btn-outline-primary">Generate Config File</button>
+		          <button type="submit" className="Generate-button btn btn-outline-secondary">Generate Config File</button>
 		        </form>
 		        <GenerateLoading state={this.state} />
 	    	</div>
